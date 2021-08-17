@@ -1,1 +1,2 @@
-# simple_shell
+<h2>This is the ALX SIMPLE SHELL GROUP PROJECT</h2>
+x
