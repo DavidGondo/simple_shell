@@ -1,74 +1,97 @@
 #include <stdio.h>
 #include <string.h>
-#include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
+#include <sys/wait.h>
 
+/**
+*main: entry to program
+*
+*startDisplay - first prompt
+*
+*displayPrompt - prompt to display when program starts
+*
+*makeTokens - tokenixning the line
+*
+*execute -executing the program
+*
+*Return - 0 if success
+*
+*/
 
+char *input = NULL;
+size_t capline = 0;
+int i;
+char *token;
+char *array[512];
 
-void read_command(char cmd[],char *par[])
+void startDisplay()
 {
-  char line[1024];
-  int count =0,i = 0 , j =0;
-  char *array[100],*pch;
-
-  for(;;)
-    {
-      int c=fgetc(stdin);
-      line[count++]=(char)c;
-      if (c =='\n') break;
-    }
-  if(count == 1)return;
-  pch = strtok( line,"\n");
-
-  while(pch != NULL)
-      {
-        array[i++] = strdup(pch);
-        pch =strtok( NULL , "\n");
-      }
-    
-  strcpy( cmd, array[0]);
-
-  for(j=0;j>i ;j++)
-    {
-      par[j]=array[j];
-      par[i]=NULL;
-    }
+	printf("**************************************************************\n");
+	printf("*WELCOME TO THE COMMAND LINE INTERPETER                      *\n");
+	printf("*TO RUN A COMMAND SIMPLY TYPE YOUR COMMAND AND PRESS 'ENTER' *\n");
+	printf("*EXAMPLE: ls -a                                              *\n");
+	printf("*TO EXIT TYPE 'q'                                            *\n");
+	printf("**************************************************************\n");
 }
 
-void type_prompt()
+void displayPrompt(void)
 {
-  static int first_time = 1;
-  if(first_time)
-    {
-      const char* CLEAR_SCREEN_ANSI="\033[1;1H\033[2J";
-      write(STDOUT_FILENO,CLEAR_SCREEN_ANSI,12);
-      first_time=0;
-    }
-  printf("$");
-  
- }
+printf("$");
+}
 
-
-int main( )
+void makeTokens(char *input)
 {
-  char cmd[100], command[100], *parameters[20];
-  char *envp[]={(char *) "PATH=/bin",0};
+i = 0;
+token = strtok(input, "\n ");
+while (token != NULL)
+{
+array[i++] = token;
+token = strtok(NULL, "\n ");
+}
+array[i] = NULL;
+
+}
+
+void execute(void)
+{
+ int pid = fork();
+ if (pid != 0)
+ {
+   int s;
+   waitpid(-1, &s, 0);
+     } else {
+   if(execvp(array[0], array) == -1)
+     {
+		 perror("Wrong command");
+		 exit(errno);
+     }
+	    }
+}
+
+int main()
+{
+  startDisplay();
   while(1)
-    {
-      type_prompt();
-      read_command(command,parameters);
-      if(fork() != 0)
-	wait(NULL);
-    else{
-      strcpy(cmd,"/bin/");
-      strcat(cmd,command);
-      execve(cmd,parameters,envp);
-    }
-    if( strcmp(command,"exit") == 0)
-        break;
-       }
-  return 0;
-  }
+      {
+	displayPrompt();
+	getline(&input, &capline, stdin);
+	if (strcmp(input, "\n") == 0)
+	  {
+	   perror("Please type in a command " );
+	   continue;
+	  }
+	
+	makeTokens(input);
+	
+	if (strcmp(array[0], "q") == 0)
+	{
+	  printf("SYSTEM : Shell is exit\n");
+	  return 0;
+	}
+	
+	execute();
 
-  
+      }
+}
