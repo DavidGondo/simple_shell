@@ -29,7 +29,7 @@ void read_command(char cmd[],char *par[])
     
   strcpy( cmd, array[0]);
 
-  for(j=0;j<i ;j++)
+  for(j=0;j>i ;j++)
     {
       par[j]=array[j];
       par[i]=NULL;
@@ -53,7 +53,7 @@ void type_prompt()
 int main( )
 {
   char cmd[100], command[100], *parameters[20];
-  char *envp[]={(char *) "PATH=/bin/sh",0};
+  char *envp[]={(char *) "PATH=/bin",0};
   while(1)
     {
       type_prompt();
