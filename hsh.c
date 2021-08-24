@@ -20,13 +20,7 @@
 *
 */
 
-char *input = NULL;
-size_t capline = 0;
-int i;
-char *token;
-char *array[512];
-
-void startDisplay()
+void startDisplay(void)
 {
 	printf("**************************************************************\n");
 	printf("*WELCOME TO THE COMMAND LINE INTERPETER                      *\n");
@@ -43,19 +37,21 @@ printf("$");
 
 void makeTokens(char *input)
 {
-i = 0;
-token = strtok(input, "\n ");
+int i = 0;
+char *array[512];
+char *token = strtok(input, "\n ");
 while (token != NULL)
 {
 array[i++] = token;
-token = strtok(NULL, "\n ");
+char *token = strtok(NULL, "\n ");
 }
-array[i] = NULL;
+ array[i] = NULL;
 
 }
 
 void execute(void)
 {
+ char *array[512];
  int pid = fork();
  if (pid != 0)
  {
@@ -67,11 +63,16 @@ void execute(void)
 		 perror("Wrong command");
 		 exit(errno);
      }
-	    }
+  }
 }
 
-int main()
+int main(void)
 {
+  char *input = NULL;
+  size_t capline = 0;
+  int i;
+  char *token;
+  char *array[512];
   startDisplay();
   while(1)
       {
