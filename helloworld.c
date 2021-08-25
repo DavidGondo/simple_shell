@@ -7,7 +7,8 @@
 */
 int main(void)
 {
-        printf("Welcome to Ower Betty Compatible Shell\n");
+	printf("Welcome to Ower Betty Compatible Shell\n");
 
-        return (0);
+	return (0);
+
 }
