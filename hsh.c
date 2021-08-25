@@ -6,20 +6,9 @@
 #include <sys/wait.h>
 
 /**
-*main: entry to program
-*
 *startDisplay - first prompt
-*
-*displayPrompt - prompt to display when program starts
-*
-*makeTokens - tokenixning the line
-*
-*execute -executing the program
-*
-*Return - 0 if success
-*
+*Retun: void
 */
-
 void startDisplay(void)
 {
 	printf("**************************************************************\n");
@@ -30,11 +19,20 @@ void startDisplay(void)
 	printf("**************************************************************\n");
 }
 
+/**
+*displayPrompt - prompt to display when program starts
+*Return: void
+*/
 void displayPrompt(void)
 {
 	printf("$");
 }
 
+/**
+*makeTokens - tokenixning the line
+*@input: input to be token
+*Return: void
+*/
 void makeTokens(char *input)
 {
 	int i = 0;
@@ -50,6 +48,10 @@ void makeTokens(char *input)
 
 }
 
+/**
+*execute - executing the program
+*Return: void
+*/
 void execute(void)
 {
 	char *array[512];
@@ -69,6 +71,10 @@ void execute(void)
 	}
 }
 
+/**
+*main: entry to program
+*Return: 0 on success
+*/
 int main(void)
 {
 	char *input = NULL;
