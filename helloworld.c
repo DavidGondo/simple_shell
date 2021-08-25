@@ -5,7 +5,6 @@
 *
 *Return: Always zero(Success)
 */
-
 int main(void)
 {
   
