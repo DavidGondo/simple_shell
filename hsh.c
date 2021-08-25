@@ -75,7 +75,7 @@ void execute(void)
 }
 
 /**
-*main: entry to program
+*main - Entry to program
 *Return: 0 on success
 */
 int main(void)
