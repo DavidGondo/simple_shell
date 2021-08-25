@@ -1,0 +1,26 @@
+NAME
+       simple_shell - A new SHell
+SYNOPSIS
+       simple_shell [options] [command_string | file]
+COPYRIGHT
+       simple_shell is Copyright (C) by the David and Mathias at ALX,
+       Inc.
+DESCRIPTION
+       simple shell is an sh-compatible command language interpreter that
+       executes commands read from the standard input or from a file
+       
+OPTIONS
+       All of the single-character shell options documented in the
+       description of the set builtin command, can be used
+       as options when the shell is invoked.  In addition, simple_shell
+       interprets the following options when it is invoked:
+
+       -l     Make simple_shell act as if it had been invoked as a login shell
+              (see INVOCATION below).
+       -r     If the -r option is present, the shell becomes restricted
+              (see RESTRICTED SHELL below).
+       -s     If the -s option is present, or if no arguments remain
+              after option processing, then commands are read from the
+              standard input.  This option allows the positional
+              parameters to be set when invoking an interactive shell or
+              when reading input through a pipe.
