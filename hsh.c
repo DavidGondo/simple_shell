@@ -38,6 +38,7 @@ void makeTokens(char *input)
 	int i = 0;
 	char *array[512];
 	char *token = strtok(input, "\n ");
+
 	while (token != NULL)
 	{
 		array[i++] = token;
@@ -56,14 +57,16 @@ void execute(void)
 {
 	char *array[512];
 	int pid = fork();
+
 	if (pid != 0)
 	{
 		int s;
+
 		waitpid(-1, &s, 0);
 	}
 	else
 	{
-		if(execvp(array[0], array) == -1)
+		if (execvp(array[0], array) == -1)
 		{
 			perror("Wrong command");
 			exit(errno);
@@ -82,29 +85,29 @@ int main(void)
 	int i;
 	char *token;
 	char *array[512];
-	
+
 	startDisplay();
-	
-	while(1)
+
+	while (1)
 	{
 		displayPrompt();
 		getline(&input, &capline, stdin);
-		
+
 		if (strcmp(input, "\n") == 0)
 		{
-			perror("Please type in a command " );
+			perror("Please type in a command ");
 			continue;
 		}
-		
+
 		makeTokens(input);
-		
+
 		if (strcmp(array[0], "q") == 0)
 		{
 			printf("SYSTEM : Shell is exit\n");
-			return 0;
+			return (0);
 		}
-		
+
 		execute();
-		
+
 	}
 }
