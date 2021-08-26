@@ -32,7 +32,7 @@ void startDisplay()
 	printf("*WELCOME TO THE COMMAND LINE INTERPETER                      *\n");
 	printf("*TO RUN A COMMAND SIMPLY TYPE YOUR COMMAND AND PRESS 'ENTER' *\n");
 	printf("*EXAMPLE: ls -a                                              *\n");
-	printf("*TO EXIT TYPE 'q'                                            *\n");
+	printf("*TO EXIT TYPE 'exit'                                           *\n");
 	printf("**************************************************************\n");
 }
 
@@ -70,7 +70,7 @@ void execute(void)
 	    }
 }
 
-int main()
+int main(void)
 {
   startDisplay();
   while(1)
@@ -85,7 +85,7 @@ int main()
 	
 	makeTokens(input);
 	
-	if (strcmp(array[0], "q") == 0)
+	if (strcmp(array[0], "exit") == 0)
 	{
 	  printf("SYSTEM : Shell is exit\n");
 	  return 0;
